@@ -36,6 +36,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 
+io.origins("*");
+
 io.on('connection', function(socket){
   socket.emit('an event', {some: 'data'});
 });
