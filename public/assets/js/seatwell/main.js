@@ -17,7 +17,7 @@ $(function (){
 //        autoStart:false
 //    });
 
-    var app = new Seatwell(serverUrl,totalClock);
+    var app = new Seatwell(serverUrl,totalClock, tableObject);
     var socket = io();
 
     socket.on('connect', function() {
