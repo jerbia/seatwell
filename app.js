@@ -60,13 +60,9 @@ io.on('connection', function(socket){
 
 
     console.log("socket created");
-    // when the client emits 'new message', this listens and executes
-    socket.on('new message', function (data) {
-        // we tell the client to execute 'new message'
-        socket.broadcast.emit('new message', {
-            username: socket.username,
-            message: data
-        });
+    // when the client emits 'set time', this listens and executes
+    socket.on('setTime', function (data) {
+        sittingTime = data.sittingTime;
     });
 
 
@@ -145,6 +141,7 @@ app.post('/sit', function(req, res) {
     var isSitting = req.body.isSitting;
     var agitation = req.body.agitation;
 
+    console.log("message from device, sitting = " + isSitting );
     //results.push(entry);
     if (isSitting == "False") {
         totalAgitation   = 0;
