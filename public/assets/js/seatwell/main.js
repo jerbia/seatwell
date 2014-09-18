@@ -25,7 +25,7 @@ $(function (){
     });
 
     socket.on('message', function(msg) {
-        app.updateClock(msg);
+        app.updateClock(msg.isSitting, msg.sittingTime);
     });
 
 });
