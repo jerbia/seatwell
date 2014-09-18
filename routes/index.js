@@ -3,6 +3,7 @@ var router = express.Router();
 var results = [];
 var currentlySitting = false;
 var sittingTime = 0;
+var totalAgitation = 0;
 
 
 /* GET home page. */
@@ -12,7 +13,7 @@ router.get('/', function(req, res) {
 
 /* GET all entries */
 router.get('/isSitting', function(req, res) {
-  res.render('isSitting', { sittingTime: sittingTime, isSitting: currentlySitting });
+  res.render('isSitting', { sittingTime: sittingTime, isSitting: currentlySitting, agitation:totalAgitation });
 });
 
 /* GET all entries */
@@ -24,6 +25,7 @@ router.get('/sittings', function(req, res) {
 router.get('/reset', function(req, res) {
   currentlySitting = false;
   sittingTime = 0;
+  totalAgitation = 0;
   res.render('isSitting', { sittingTime: sittingTime, isSitting: currentlySitting });
 });
 
@@ -32,13 +34,16 @@ router.post('/sit', function(req, res) {
   var pressure  = req.body.pressure;
   var time      = new Date();
   var isSitting = req.body.isSitting;
-  var entry = {"pressure":pressure, "time":time, "isSitting":isSitting};
+  var agitation = req.body.agitation;
+  var entry = {"pressure":pressure, "time":time, "isSitting":isSitting, "agitation":agitation };
   //results.push(entry);
   if (isSitting == "False") {
     currentlySitting = false;
+    totalAgitation   = 0;
   }
   else {
     currentlySitting = true;
+    totalAgitation   = agitation;
     sittingTime++;
   }
   res.render('addSit', { entry: entry });
