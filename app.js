@@ -50,7 +50,7 @@ io.on('connection', function(socket){
      mySocket = socket;
 
      if (currentlySitting == true) {
-       console.log("sending start to websocket");
+       console.log("sending start to websocket. startTime=" + sittingTime);
        mySocket.emit('start', {"sittingTime":sittingTime, "isSitting":"True"});
      }
      else {
@@ -159,7 +159,7 @@ app.post('/sit', function(req, res) {
         if (currentlySitting == false) {
             currentlySitting = true;
             if (mySocket != undefined) {
-               console.log("sending start to websocket");
+               console.log("sending start to websocket. Start time=" + sittingTime);
                mySocket.emit('start', {"sittingTime":sittingTime, "isSitting":isSitting});
             }
         }
