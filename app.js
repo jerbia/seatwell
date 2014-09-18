@@ -141,6 +141,7 @@ app.post('/sit', function(req, res) {
         if (currentlySitting == true) {
             currentlySitting = false;
             if (mySocket != undefined) {
+                console.log("sending pause to websocket");
                 mySocket.emit('pause', {"isSitting":isSitting});
             }
         }
@@ -151,6 +152,7 @@ app.post('/sit', function(req, res) {
         if (currentlySitting == false) {
             currentlySitting = true;
             if (mySocket != undefined) {
+               console.log("sending start to websocket");
                 mySocket.emit('start', {"sittingTime":sittingTime, "isSitting":isSitting});
             }
         }
