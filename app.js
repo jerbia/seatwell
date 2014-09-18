@@ -50,10 +50,10 @@ io.on('connection', function(socket){
      mySocket = socket;
 
      if (currentlySitting == true) {
-       mySocket.emit('start', {"sittingTime":sittingTime, "isSitting":isSitting});
+       mySocket.emit('start', {"sittingTime":sittingTime, "isSitting":"True"});
      }
      else {
-         mySocket.emit('pause', {"isSitting":isSitting});
+         mySocket.emit('pause', {"isSitting":"False"});
      }
 
 
