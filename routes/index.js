@@ -27,7 +27,7 @@ router.post('/sit', function(req, res) {
   var isSitting = req.body.isSitting;
   var entry = {"pressure":pressure, "time":time, "isSitting":isSitting};
   results.push(entry);
-  if (isSitting == "false") {
+  if (isSitting == "False") {
     currentlySitting = false;
   }
   else {
