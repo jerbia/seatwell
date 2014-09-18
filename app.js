@@ -16,9 +16,6 @@ var routes = require('./routes/index');
 var bodyParser = require('body-parser')
 
 
-
-io.origins("*");
-
 // parse application/json
 app.use(bodyParser.json())
 
