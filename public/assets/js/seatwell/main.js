@@ -34,6 +34,7 @@ $(function (){
 
     socket.on('pause', function(msg) {
         app.pauseClock();
+        socket.emit('setTime',{'sittingTime': totalClock.getTime().time});
     });
 
 });
