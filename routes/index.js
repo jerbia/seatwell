@@ -45,4 +45,16 @@ router.post('/sit', function(req, res) {
 });
 
 
+/* GET all entries */
+router.get('/git', function(req, res) {
+  var sys = require('sys')
+  var exec = require('child_process').exec;
+  function puts(error, stdout, stderr) {
+    console.log(stdout);
+  }
+  exec("/home/ubuntu/pull.sh", puts);
+  res.render('index', { title: 'Thanks' });
+});
+
+
 module.exports = router;
