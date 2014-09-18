@@ -28,6 +28,14 @@ $(function (){
         app.updateClock(msg.isSitting, msg.sittingTime);
     });
 
+    socket.on('start', function(msg) {
+        app.updateClock(msg.sittingTime, msg.sittingTime);
+    });
+
+    socket.on('pause', function(msg) {
+        app.updateClock(msg.isSitting, msg.sittingTime);
+    });
+
 });
 
 var Seatwell = function(serverUrl,clockObject,tableObject) {
@@ -43,9 +51,13 @@ Seatwell.prototype = {
 
     updateClock: function(isStting, sittingTime) {
         this.clockObject.setTime(sittingTime);
-        this.tableObject.text(sittingTime);
+        this.clockObject.start();
+        //this.tableObject.text(sittingTime);
     },
 
+    pauseClock: function() {
+        this.clockObject.stop();
+    },
 
     updateFromServer: function(instance) {
         $.getJSON(this.serverUrl,
