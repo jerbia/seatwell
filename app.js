@@ -147,7 +147,7 @@ app.post('/sit', function(req, res) {
     }
 
     if (mySocket != undefined) {
-        mySocket.emit('new message', entry);
+        mySocket.emit('message', entry);
     }
 
 
