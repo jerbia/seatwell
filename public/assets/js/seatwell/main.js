@@ -33,7 +33,7 @@ $(function (){
     });
 
     socket.on('pause', function(msg) {
-        app.updateClock(msg.isSitting, msg.sittingTime);
+        app.pauseClock();
     });
 
 });
