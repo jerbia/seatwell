@@ -20,13 +20,20 @@ router.get('/sittings', function(req, res) {
   res.render('sittings', { results: results });
 });
 
+/* GET all entries */
+router.get('/reset', function(req, res) {
+  currentlySitting = false;
+  sittingTime = 0;
+  res.render('isSitting', { sittingTime: sittingTime, isSitting: currentlySitting });
+});
+
 /* add an entry */
 router.post('/sit', function(req, res) {
   var pressure  = req.body.pressure;
   var time      = new Date();
   var isSitting = req.body.isSitting;
   var entry = {"pressure":pressure, "time":time, "isSitting":isSitting};
-  results.push(entry);
+  //results.push(entry);
   if (isSitting == "False") {
     currentlySitting = false;
   }
