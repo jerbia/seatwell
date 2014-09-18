@@ -54,7 +54,7 @@ var Seatwell = function(serverUrl,clockObject,tableObject) {
 
 Seatwell.prototype = {
 
-    updateClock: function(isStting, sittingTime) {
+    updateClock: function(isSitting, sittingTime) {
         this.clockObject.setTime(sittingTime);
         if (isSitting==="True") {
             this.clockObject.start();
