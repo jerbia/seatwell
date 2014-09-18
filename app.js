@@ -51,11 +51,11 @@ io.on('connection', function(socket){
 
      if (currentlySitting == true) {
        console.log("sending start to websocket. startTime=" + sittingTime);
-       mySocket.emit('start', {"sittingTime":sittingTime, "isSitting":"True"});
+       mySocket.emit('init', {"sittingTime":sittingTime, "isSitting":"True"});
      }
      else {
         console.log("sending stop to websocket");
-        mySocket.emit('pause', {"isSitting":"False"});
+        mySocket.emit('init', {"sittingTime":sittingTime, "isSitting":"False"});
      }
 
 
