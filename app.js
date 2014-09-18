@@ -50,10 +50,12 @@ io.on('connection', function(socket){
      mySocket = socket;
 
      if (currentlySitting == true) {
+       console.log("sending start to websocket");
        mySocket.emit('start', {"sittingTime":sittingTime, "isSitting":"True"});
      }
      else {
-         mySocket.emit('pause', {"isSitting":"False"});
+        console.log("sending stop to websocket");
+        mySocket.emit('pause', {"isSitting":"False"});
      }
 
 
