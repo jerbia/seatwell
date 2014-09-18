@@ -137,21 +137,26 @@ app.post('/sit', function(req, res) {
 
     //results.push(entry);
     if (isSitting == "False") {
-        currentlySitting = false;
         totalAgitation   = 0;
+        if (currentlySitting == true) {
+            currentlySitting = false;
+            if (mySocket != undefined) {
+                mySocket.emit('pause', {"isSitting":isSitting});
+            }
+        }
     }
     else {
-        currentlySitting = true;
-        totalAgitation   = agitation;
+        totalAgitation = agitation;
         sittingTime++;
+        if (currentlySitting == false) {
+            currentlySitting = true;
+            if (mySocket != undefined) {
+                mySocket.emit('start', {"sittingTime":sittingTime, "isSitting":isSitting});
+            }
+        }
     }
 
     var entry = {"pressure":pressure, "sittingTime":sittingTime, "isSitting":isSitting, "agitation":agitation };
-
-    if (mySocket != undefined) {
-        mySocket.emit('message', entry);
-    }
-
 
     res.render('addSit', { entry: entry });
 
