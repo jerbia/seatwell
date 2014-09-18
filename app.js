@@ -62,6 +62,7 @@ io.on('connection', function(socket){
     console.log("socket created");
     // when the client emits 'set time', this listens and executes
     socket.on('setTime', function (data) {
+        console.log("**received data from websocket. Sitting time =" + data.sittingTime);
         sittingTime = data.sittingTime;
     });
 
