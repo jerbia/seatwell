@@ -1,3 +1,5 @@
+var globalSocket = require('../app');
+
 var express = require('express');
 var router = express.Router();
 var results = [];
@@ -46,7 +48,12 @@ router.post('/sit', function(req, res) {
     totalAgitation   = agitation;
     sittingTime++;
   }
+
+  var socket = globalSocket();
+  socket.emit('new message', entry);
+
   res.render('addSit', { entry: entry });
+
 });
 
 
