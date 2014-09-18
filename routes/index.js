@@ -32,8 +32,8 @@ router.post('/sit', function(req, res) {
   }
   else {
     currentlySitting = true;
+    sittingTime++;
   }
-  sittingTime++;
   res.render('addSit', { entry: entry });
 });
 
