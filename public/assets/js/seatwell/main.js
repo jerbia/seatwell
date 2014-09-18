@@ -12,7 +12,7 @@ $(function (){
         autoStart:false
     });
 
-    var tableObject = $('time-table');
+    var tableObject = $('.time-table');
 //    var sessionClock = $('.session-clock').FlipClock({
 //        autoStart:false
 //    });
