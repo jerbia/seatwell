@@ -46,11 +46,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 //  app.use('/', routes);
 
 io.on('connection', function(socket){
-//  socket.emit('an event', {some: 'data'});
 
-    mySocket = socket;
+     mySocket = socket;
+
+     if (currentlySitting == true) {
+       mySocket.emit('start', {"sittingTime":sittingTime, "isSitting":isSitting});
+     }
+     else {
+         mySocket.emit('pause', {"isSitting":isSitting});
+     }
+
+
     console.log("socket created");
-   // when the client emits 'new message', this listens and executes
+    // when the client emits 'new message', this listens and executes
     socket.on('new message', function (data) {
         // we tell the client to execute 'new message'
         socket.broadcast.emit('new message', {
@@ -153,7 +161,7 @@ app.post('/sit', function(req, res) {
             currentlySitting = true;
             if (mySocket != undefined) {
                console.log("sending start to websocket");
-                mySocket.emit('start', {"sittingTime":sittingTime, "isSitting":isSitting});
+               mySocket.emit('start', {"sittingTime":sittingTime, "isSitting":isSitting});
             }
         }
     }
