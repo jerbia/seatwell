@@ -134,7 +134,7 @@ app.post('/sit', function(req, res) {
     var time      = new Date();
     var isSitting = req.body.isSitting;
     var agitation = req.body.agitation;
-    var entry = {"pressure":pressure, "time":time, "isSitting":isSitting, "agitation":agitation };
+
     //results.push(entry);
     if (isSitting == "False") {
         currentlySitting = false;
@@ -145,6 +145,8 @@ app.post('/sit', function(req, res) {
         totalAgitation   = agitation;
         sittingTime++;
     }
+
+    var entry = {"pressure":pressure, "sittingTime":sittingTime, "isSitting":isSitting, "agitation":agitation };
 
     if (mySocket != undefined) {
         mySocket.emit('message', entry);
