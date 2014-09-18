@@ -1,6 +1,8 @@
 var express = require('express');
-var server = require('http').Server(app);
-var io     = require('socket.io')(server);
+var app = express();
+
+var server  = require('http').createServer(app);
+var io      = require('socket.io')(server);
 
 var path = require('path');
 var cors = require('cors');
@@ -13,7 +15,9 @@ var routes = require('./routes/index');
 
 var bodyParser = require('body-parser')
 
-var app = express();
+
+
+io.origins("*");
 
 // parse application/json
 app.use(bodyParser.json())
@@ -35,8 +39,6 @@ app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-
-io.origins("*");
 
 io.on('connection', function(socket){
   socket.emit('an event', {some: 'data'});
