@@ -46,11 +46,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 //  app.use('/', routes);
 
 io.on('connection', function(socket){
-//  socket.emit('an event', {some: 'data'});
 
-    mySocket = socket;
+     mySocket = socket;
+
+     if (currentlySitting == true) {
+       console.log("sending start to websocket");
+       mySocket.emit('start', {"sittingTime":sittingTime, "isSitting":"True"});
+     }
+     else {
+        console.log("sending stop to websocket");
+        mySocket.emit('pause', {"isSitting":"False"});
+     }
+
+
     console.log("socket created");
-   // when the client emits 'new message', this listens and executes
+    // when the client emits 'new message', this listens and executes
     socket.on('new message', function (data) {
         // we tell the client to execute 'new message'
         socket.broadcast.emit('new message', {
@@ -137,21 +147,28 @@ app.post('/sit', function(req, res) {
 
     //results.push(entry);
     if (isSitting == "False") {
-        currentlySitting = false;
         totalAgitation   = 0;
+        if (currentlySitting == true) {
+            currentlySitting = false;
+            if (mySocket != undefined) {
+                console.log("sending pause to websocket");
+                mySocket.emit('pause', {"isSitting":isSitting});
+            }
+        }
     }
     else {
-        currentlySitting = true;
-        totalAgitation   = agitation;
+        totalAgitation = agitation;
         sittingTime++;
+        if (currentlySitting == false) {
+            currentlySitting = true;
+            if (mySocket != undefined) {
+               console.log("sending start to websocket");
+               mySocket.emit('start', {"sittingTime":sittingTime, "isSitting":isSitting});
+            }
+        }
     }
 
     var entry = {"pressure":pressure, "sittingTime":sittingTime, "isSitting":isSitting, "agitation":agitation };
-
-    if (mySocket != undefined) {
-        mySocket.emit('message', entry);
-    }
-
 
     res.render('addSit', { entry: entry });
 
