@@ -142,7 +142,7 @@ app.post('/sit', function(req, res) {
     var isSitting = req.body.isSitting;
     var agitation = req.body.agitation;
 
-    console.log("message from device, sitting = " + isSitting );
+    console.log("message from device, sitting= " + isSitting + " , agitation=" + agitation );
     //results.push(entry);
     if (isSitting == "False") {
         userAgitation = 1;
