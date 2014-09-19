@@ -42,7 +42,7 @@ $(function (){
 
     socket.on('pause', function(msg) {
         app.pauseClock();
-        $(".activeAgitated").removeClass(".agitated");
+        $(".activeAgitated").removeClass("agitated");
         socket.emit('setTime',{'sittingTime': totalClock.getTime().time});
     });
 
@@ -74,10 +74,10 @@ Seatwell.prototype = {
 
     updateAgitation: function(agitation) {
       if (agitation>1) {
-          $(".activeAgitated").addClass(".agitated");
+          $(".activeAgitated").addClass("agitated");
       }
       else {
-           $(".activeAgitated").removeClass(".agitated");
+           $(".activeAgitated").removeClass("agitated");
       }
     },
 

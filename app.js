@@ -159,7 +159,7 @@ app.post('/sit', function(req, res) {
         if (agitation != userAgitation) {
             userAgitation = agitation;
             if (mySocket != undefined) {
-               console.log("sending start to websocket. Start time=" + sittingTime);
+               console.log("sending agitation to websocket. agitation =" + sittingTime);
                mySocket.emit('agitation', {"agitation":userAgitation});
             }
         }
