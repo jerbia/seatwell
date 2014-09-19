@@ -30,6 +30,7 @@ $(function (){
 
     socket.on('agitation', function(msg) {
         app.updateAgitation(msg.agitation);
+        app.updateClock(msg.isSitting, msg.sittingTime);
     });
 
     socket.on('init', function(msg) {

@@ -158,9 +158,12 @@ app.post('/sit', function(req, res) {
         sittingTime++;
         if (agitation != userAgitation) {
             userAgitation = agitation;
+            if (userAgitation > 1 ) {
+                sittingTime += 60;
+            }
             if (mySocket != undefined) {
                console.log("sending agitation to websocket. agitation =" + sittingTime);
-               mySocket.emit('agitation', {"agitation":userAgitation});
+               mySocket.emit('agitation', {"agitation":userAgitation, "sittingTime":sittingTime, "isSitting":isSitting});
             }
         }
 
