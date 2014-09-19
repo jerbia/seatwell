@@ -28,6 +28,10 @@ $(function (){
         app.updateClock(msg.isSitting, msg.sittingTime);
     });
 
+    socket.on('agitation', function(msg) {
+        app.updateAgitation(msg.agitation);
+    });
+
     socket.on('init', function(msg) {
         app.updateClock(msg.isSitting, msg.sittingTime);
     });
@@ -38,6 +42,7 @@ $(function (){
 
     socket.on('pause', function(msg) {
         app.pauseClock();
+        $(".activeAgitated").removeClass(".agitated");
         socket.emit('setTime',{'sittingTime': totalClock.getTime().time});
     });
 
@@ -65,6 +70,15 @@ Seatwell.prototype = {
 
     pauseClock: function() {
         this.clockObject.stop();
+    },
+
+    updateAgitation: function(agitation) {
+      if (agitation>1) {
+          $(".activeAgitated").addClass(".agitated");
+      }
+      else {
+           $(".activeAgitated").removeClass(".agitated");
+      }
     },
 
     updateFromServer: function(instance) {

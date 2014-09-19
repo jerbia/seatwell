@@ -2,15 +2,18 @@ body {
     background: black;
 }
 
+.agitated {
+  background-color: #872F34;
+}
+
 .flip-clock-label {
     color:white;
 }
 
-.icon {
-    background-image:url('../img/sad.png');
-    width: 70px;
-    height: 70px;
-    background-size:contain;
+.logo {
+    background-image:url('../img/logo.png');
+    width: 600px;
+    height: 256px;
 }
 
 .logo-img {

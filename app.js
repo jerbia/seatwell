@@ -9,7 +9,8 @@ var io      = require('socket.io')(server);
 var results = [];
 var currentlySitting = false;
 var sittingTime = 0;
-var totalAgitation = 0;
+var userAgitation = 0;
+
 
 var path = require('path');
 var cors = require('cors');
@@ -109,7 +110,6 @@ app.use(function(err, req, res, next) {
 var results = [];
 var currentlySitting = false;
 var sittingTime = 0;
-var totalAgitation = 0;
 
 
 /* GET home page. */
@@ -119,7 +119,7 @@ app.get('/', function(req, res) {
 
 /* GET all entries */
 app.get('/isSitting', function(req, res) {
-    res.render('isSitting', { sittingTime: sittingTime, isSitting: currentlySitting, agitation:totalAgitation });
+    res.render('isSitting', { sittingTime: sittingTime, isSitting: currentlySitting, agitation:userAgitation });
 });
 
 /* GET all entries */
@@ -131,7 +131,7 @@ app.get('/sittings', function(req, res) {
 app.get('/reset', function(req, res) {
     currentlySitting = false;
     sittingTime = 0;
-    totalAgitation = 0;
+    userAgitation = 1;
     res.render('isSitting', { sittingTime: sittingTime, isSitting: currentlySitting });
 });
 
@@ -145,7 +145,7 @@ app.post('/sit', function(req, res) {
     console.log("message from device, sitting = " + isSitting );
     //results.push(entry);
     if (isSitting == "False") {
-        totalAgitation   = 0;
+        userAgitation = 1;
         if (currentlySitting == true) {
             currentlySitting = false;
             if (mySocket != undefined) {
@@ -155,8 +155,15 @@ app.post('/sit', function(req, res) {
         }
     }
     else {
-        totalAgitation = agitation;
         sittingTime++;
+        if (agitation != userAgitation) {
+            userAgitation = agitation;
+            if (mySocket != undefined) {
+               console.log("sending start to websocket. Start time=" + sittingTime);
+               mySocket.emit('agitation', {"agitation":userAgitation});
+            }
+        }
+
         if (currentlySitting == false) {
             currentlySitting = true;
             if (mySocket != undefined) {
